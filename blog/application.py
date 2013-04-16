@@ -9,7 +9,11 @@ app = Flask(__name__)
 @app.route('/blog')
 @app.route('/blog/<int:page>')
 def index():
-  return render_template('index.html')
+  articles = []
+  for article in db_session.query(Article).order_by(Article.date):
+    articles.append(article)
+  print articles
+  return render_template('index.html', articles=articles)
 
 @app.route('/article/<int:id>')
 def article(id):
