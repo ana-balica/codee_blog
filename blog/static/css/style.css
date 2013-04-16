@@ -1,0 +1,197 @@
+/* COLOURS */
+/* FONT WEIGHTS */
+/* GENERAL */
+body {
+  font-family: 'Dosis', sans-serif;
+}
+img {
+  display: block;
+  margin: 20px auto;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+/* SIDEBAR */
+.sidebar {
+  width: 300px;
+  height: 100%;
+  left: 0;
+  top: 0;
+  overflow: auto;
+  position: fixed;
+  background: url('../img/sidebar.jpg') no-repeat left top;
+}
+.rss_icon {
+  width: 18px;
+  height: 18px;
+  float: right;
+  margin: 12px 12px 0 0;
+}
+.rss_icon:hover {
+  cursor: pointer;
+}
+.title {
+  color: #f4eee5;
+  text-decoration: none;
+  font-weight: 200;
+}
+.title:hover {
+  cursor: pointer;
+  text-decoration: none;
+}
+.code {
+  font-size: 120px;
+  font-weight: 200;
+  margin: 40px 0 0 43px;
+}
+.speculations {
+  font-size: 45px;
+  font-weight: 200;
+  margin: -11px 0 0 47px;
+}
+.sidebar ul {
+  font-variant: small-caps;
+  font-size: 25px;
+  margin: 115px 0 0 0;
+}
+.sidebar ul li a {
+  color: #dadada;
+  text-decoration: none;
+  display: block;
+  padding: 10px 0 13px 49px;
+}
+.sidebar ul li a:hover {
+  color: #dadada;
+  text-decoration: none;
+  background: transparent;
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#33FFFFFF,endColorstr=#33FFFFFF)";
+  /* IE8 */
+
+  filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#33FFFFFF,endColorstr=#33FFFFFF)";
+  /* IE6 & 7 */
+
+  zoom: 1;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+/* CONTENT */
+.content {
+  margin: 105px 0 150px 350px;
+  width: 500px;
+}
+.article {
+  margin-bottom: 70px;
+  color: #333333;
+}
+.article h3 {
+  font-size: 26px;
+  margin: 25px 0 10px;
+  font-weight: 500;
+}
+.article p {
+  font-family: 'Crimson Text', serif;
+  font-size: 19px;
+  color: #333333;
+  line-height: 1.25em;
+  margin-bottom: 10px;
+}
+.article .date {
+  font-size: 14px;
+  color: #838383;
+  margin: 10px 0 15px 0;
+}
+.article,
+.contact,
+.about h1 {
+  font-size: 50px;
+  font-weight: 500;
+  color: #333333;
+}
+.read_more {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-variant: small-caps;
+  font-size: 17px;
+  color: #dadada;
+  background: #262626;
+  padding: 4px 9px 7px;
+  border: none;
+}
+/* CONTACT FORM */
+form,
+.about div {
+  margin-top: 35px;
+}
+input {
+  width: 210px;
+  height: 43px;
+  margin-right: 18px;
+}
+textarea {
+  margin: 20px 0;
+  padding: 10px 6px;
+}
+input,
+textarea {
+  border: 1px solid #e0e0e0;
+  padding-left: 6px;
+  font-family: 'Source Sans Pro', serif;
+  color: #333333;
+  font-size: 17px;
+  vertical-align: middle;
+}
+input:-moz-placeholder,
+textarea:-moz-placeholder {
+  color: #dadada;
+}
+input:-ms-input-placeholder,
+textarea:-ms-input-placeholder {
+  color: #dadada;
+}
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
+  color: #dadada;
+}
+input:focus,
+textarea:focus {
+  border: 1px solid #838383;
+  outline-color: #838383;
+}
+button {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-variant: small-caps;
+  font-size: 17px;
+  color: #dadada;
+  background: #262626;
+  padding: 4px 25px 7px;
+  border: none;
+  cursor: pointer;
+}
+/* PAGINATION */
+.pagination {
+  font-variant: small-caps;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 20px;
+}
+.pagination .arrows {
+  background: url('../img/arrows.png') no-repeat;
+  width: 18px;
+  height: 30px;
+}
+.pagination .arrow_left {
+  background-position: 0 0;
+}
+.pagination .arrow_right {
+  background-position: -18px 0;
+}
+.pagination p {
+  margin: 2px 15px;
+  color: #333333;
+}
+.pagination a {
+  text-decoration: none;
+}
+.pagination a:hover {
+  text-decoration: none;
+}
