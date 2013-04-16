@@ -1,4 +1,6 @@
 from flask import Flask, render_template, request
+from database import db_session
+from models import Article
 app = Flask(__name__)
 
 
@@ -27,6 +29,10 @@ def contact():
 @app.errorhandler(404)
 def page_not_found(error):
   return "404", 404
+
+@app.teardown_request
+def shutdown_session(exception=None):
+    db_session.remove()
 
 
 if __name__ == '__main__':
