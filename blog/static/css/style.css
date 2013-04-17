@@ -171,14 +171,20 @@ input[type=submit] {
   border: none;
   cursor: pointer;
 }
-form ul.errors {
+/* ERRORS AND FLASHING */
+form ul.errors,
+form div.flash {
   font-size: 12px;
   color: #3e9cd1;
   line-height: 1.3em;
   margin-bottom: 15px;
 }
-form ul.errors li label {
+form ul.errors li label,
+form div.flash li label {
   font-weight: bold;
+}
+form div.flash {
+  margin: 10px 0 0 20px;
 }
 /* PAGINATION */
 .pagination {

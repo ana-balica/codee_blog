@@ -176,7 +176,9 @@ input[type=submit] {
 	cursor: pointer;
 }
 
-form ul.errors {
+/* ERRORS AND FLASHING */
+form ul.errors,
+form div.flash {
 	font-size: 12px;
 	color: @error-blue;
 	line-height: 1.3em;
@@ -184,6 +186,10 @@ form ul.errors {
 	li label{
 		font-weight: bold;
 	}
+}
+
+form div.flash {
+	margin: 10px 0 0 20px;
 }
 
 /* PAGINATION */
