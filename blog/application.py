@@ -1,6 +1,9 @@
 from flask import Flask, render_template, request
 from database import db_session
 from models import Article
+
+# from datetime import date
+
 app = Flask(__name__)
 
 
@@ -8,11 +11,11 @@ app = Flask(__name__)
 @app.route('/index/')
 @app.route('/blog')
 @app.route('/blog/<int:page>')
-def index():
+def blog():
   articles = []
   for article in db_session.query(Article).order_by(Article.date):
+    article.date = article.date.strftime("%d %b %Y")
     articles.append(article)
-  print articles
   return render_template('index.html', articles=articles)
 
 @app.route('/article/<int:id>')
