@@ -171,6 +171,15 @@ input[type=submit] {
   border: none;
   cursor: pointer;
 }
+form ul.errors {
+  font-size: 12px;
+  color: #3e9cd1;
+  line-height: 1.3em;
+  margin-bottom: 15px;
+}
+form ul.errors li label {
+  font-weight: bold;
+}
 /* PAGINATION */
 .pagination {
   font-variant: small-caps;

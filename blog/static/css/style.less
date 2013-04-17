@@ -5,6 +5,7 @@
 @dark-grey: #333333;
 @darker-grey: #262626;
 @border: #e0e0e0;
+@error-blue: #3E9CD1;
 
 /* FONT WEIGHTS */
 @light-weight: 200;
@@ -173,6 +174,16 @@ input[type=submit] {
 	padding: 4px 25px 7px;
 	border: none;
 	cursor: pointer;
+}
+
+form ul.errors {
+	font-size: 12px;
+	color: @error-blue;
+	line-height: 1.3em;
+	margin-bottom: 15px;
+	li label{
+		font-weight: bold;
+	}
 }
 
 /* PAGINATION */
