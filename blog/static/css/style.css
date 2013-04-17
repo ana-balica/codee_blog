@@ -132,6 +132,8 @@ input[type=email] {
 textarea {
   margin: 20px 0;
   padding: 10px 6px;
+  width: 454px;
+  resize: vertical;
 }
 input,
 textarea {
