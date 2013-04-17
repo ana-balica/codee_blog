@@ -1,10 +1,7 @@
-from flask import Flask, render_template, request
+from flask import render_template, request
+from blog import app
 from database import db_session
 from models import Article
-
-# from datetime import date
-
-app = Flask(__name__)
 
 
 @app.route('/')
@@ -40,8 +37,3 @@ def page_not_found(error):
 @app.teardown_request
 def shutdown_session(exception=None):
     db_session.remove()
-
-
-if __name__ == '__main__':
-  app.debug = True
-  app.run()
