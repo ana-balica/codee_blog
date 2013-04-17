@@ -2,6 +2,7 @@ from flask import render_template, request
 from blog import app
 from database import db_session
 from models import Article
+from forms import ContactForm
 
 
 @app.route('/')
@@ -25,10 +26,11 @@ def about():
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
-  if request.method == 'POST':
-    return render_template('contaact.html')
-  else:
+  form = ContactForm(request.form)
+  if request.method == 'POST' and form.validate():
+    print form.name.data
     return render_template('contact.html')
+  return render_template('contact.html', form=form)
 
 @app.errorhandler(404)
 def page_not_found(error):
