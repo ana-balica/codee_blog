@@ -7,6 +7,7 @@
     {{ render_field(form.name, placeholder='Name') }}
     {{ render_field(form.email, placeholder='Email') }}
     {{ render_field(form.message, placeholder='Type your message here', cols='63', rows='10') }}
+    <!-- DISPLAY ERRORS -->
     {% if form.errors %}
     <ul class="errors">
       {% for field_name, field_errors in form.errors|dictsort if field_errors %}
@@ -17,6 +18,14 @@
     </ul>
     {% endif %}
     {{ render_field(form.submit, class='left', value='submit') }}
+    <!-- FLASH MESSAGES -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class='flash left'>{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
   </form>
 </div>
 {% endblock %}
