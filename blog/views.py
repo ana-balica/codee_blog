@@ -1,4 +1,4 @@
-from flask import render_template, request, flash
+from flask import render_template, request, flash, redirect, url_for
 from flask.ext.mail import Mail
 from flask.ext.mail import Message
 from flask_flatpages import FlatPages
@@ -6,23 +6,44 @@ from blog import app
 from forms import ContactForm
 
 DELIMITER = '<p>&lt;---&gt;</p>'
+ARTICLES_PER_PAGE = 2
 
 mail = Mail(app)
 pages = FlatPages(app)
 
 @app.route('/')
 @app.route('/index/')
-@app.route('/blog')
-@app.route('/blog/<int:page>')
-def blog():
+@app.route('/blog/')
+@app.route('/blog/p/<int:page>')
+def blog(page = 1):
   articles = (p for p in pages if 'published' in p.meta)
-  latest = sorted(articles, reverse=True,
+  sorted_articles = sorted(articles, reverse=True,
                     key=lambda p: p.meta['published'])
+  start = (page-1)*ARTICLES_PER_PAGE
+  end = page*ARTICLES_PER_PAGE
+  latest = sorted_articles[start:end]
+
+  if not latest:
+    return redirect(url_for('blog'))
+
   for article in latest:
     article.date = article['published'].strftime("%d %b %Y")
     article.preview = extract_preview(latest[0].html)
     article.full_body = article.html.replace(DELIMITER, '')
-  return render_template('index.html', articles=latest[:10])
+
+  future = True
+  past = True
+  previous_page = page+1
+  next_page = page-1
+
+  if page == 1:
+    future = False
+
+  if len(sorted_articles) < end+1:
+    past = False
+
+  return render_template('index.html', articles=latest, future=future, 
+            past=past, previous_page=previous_page, next_page=next_page)
 
 
 @app.route('/blog/a/<article_name>')

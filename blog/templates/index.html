@@ -11,13 +11,17 @@
 </div>
 {% endfor %}
 <div class="pagination">
-  <a href="" class='left'>
+  {% if past %}
+  <a href="{{ url_for('blog', page=previous_page) }}" class='left'>
     <div class="arrows arrow_left left"></div>
     <p class="left">past</p>
   </a>
-  <a href="" class='right'>
+  {% endif %}
+  {% if future %}
+  <a href="{{ url_for('blog', page=next_page) }}" class='right'>
     <div class="arrows arrow_right right"></div>
     <p class="right">future</p>
   </a>
+  {% endif %}
 </div>
 {% endblock %}
