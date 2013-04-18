@@ -6,10 +6,13 @@
 @darker-grey: #262626;
 @border: #e0e0e0;
 @error-blue: #3E9CD1;
+@pale-cyan: #79C4D3;
+@pink: #FF3044;
 
 /* FONT WEIGHTS */
 @light-weight: 200;
 @bold-weight: 500;
+@bolder-weight: 600;
 
 /* GENERAL */
 body {font-family: 'Dosis', sans-serif;}
@@ -88,20 +91,40 @@ img {display: block; margin: 20px auto;}
 }
 
 .article {
-	margin-bottom: 70px;
+	margin-bottom: 100px;
 	color: @dark-grey;
-	h3 {
+	h2, h3 {
 		font-size: 26px;
 		font-weight: @bold-weight;
 		margin: 25px 0 10px;
-		font-weight: @bold-weight;
 	}
-	p {
+	h4, h5, h6 {
+		font-size: 20px;
+		margin: 10px 0;
+	}
+	p, ul li {
 		font-family: 'Crimson Text', serif;
 		font-size: 19px;
 		color: @dark-grey;
 		line-height: 1.25em;
 		margin-bottom: 10px;
+	}
+	ul {
+		margin-left: 50px;
+	}
+	ul li {
+		margin-bottom: 5px;
+		list-style-type: square;
+	}
+	strong {
+		font-weight: @bolder-weight;
+	}
+	a {
+		color: @darker-grey;
+		&:hover {
+			color: @error-blue;
+			text-decoration: none;
+		}
 	}
 	.date {
 		font-size: 14px;
@@ -124,6 +147,7 @@ img {display: block; margin: 20px auto;}
 	background: @darker-grey;
 	padding: 4px 9px 7px;
 	border: none;
+	cursor: pointer;
 }
 
 /* CONTACT FORM */

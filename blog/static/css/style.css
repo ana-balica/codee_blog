@@ -82,20 +82,45 @@ img {
   width: 500px;
 }
 .article {
-  margin-bottom: 70px;
+  margin-bottom: 100px;
   color: #333333;
 }
+.article h2,
 .article h3 {
   font-size: 26px;
-  margin: 25px 0 10px;
   font-weight: 500;
+  margin: 25px 0 10px;
 }
-.article p {
+.article h4,
+.article h5,
+.article h6 {
+  font-size: 20px;
+  margin: 10px 0;
+}
+.article p,
+.article ul li {
   font-family: 'Crimson Text', serif;
   font-size: 19px;
   color: #333333;
   line-height: 1.25em;
   margin-bottom: 10px;
+}
+.article ul {
+  margin-left: 50px;
+}
+.article ul li {
+  margin-bottom: 5px;
+  list-style-type: square;
+}
+.article strong {
+  font-weight: 600;
+}
+.article a {
+  color: #262626;
+}
+.article a:hover {
+  color: #3e9cd1;
+  text-decoration: none;
 }
 .article .date {
   font-size: 14px;
@@ -117,6 +142,7 @@ img {
   background: #262626;
   padding: 4px 9px 7px;
   border: none;
+  cursor: pointer;
 }
 /* CONTACT FORM */
 form,
