@@ -28,7 +28,7 @@ def blog(page = 1):
 
   for article in latest:
     article.date = article['published'].strftime("%d %b %Y")
-    article.preview = extract_preview(latest[0].html)
+    article.preview = extract_preview(article.html)
     article.full_body = article.html.replace(DELIMITER, '')
 
   future = True
