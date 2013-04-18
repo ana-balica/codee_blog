@@ -25,7 +25,7 @@ def blog():
   return render_template('index.html', articles=latest[:10])
 
 
-@app.route('/a/<article_name>')
+@app.route('/blog/a/<article_name>')
 def article(article_name):
   articles = (p for p in pages if 'published' in p.meta)
   for article in articles:

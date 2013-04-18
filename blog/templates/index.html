@@ -7,7 +7,7 @@
   <div>
     {{ article.preview|safe }}
   </div>
-  <a href=""><button class="read_more right">continue reading &raquo;</button></a>
+  <a href="{{ url_for('article', article_name=article['url']) }}"><button class="read_more right">continue reading &raquo;</button></a>
 </div>
 {% endfor %}
 <div class="pagination">
