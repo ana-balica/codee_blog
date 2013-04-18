@@ -25,9 +25,14 @@ def blog():
   return render_template('index.html', articles=latest[:10])
 
 
-@app.route('/article/<int:id>')
-def article(id):
-  return render_template('article.html')
+@app.route('/a/<article_name>')
+def article(article_name):
+  articles = (p for p in pages if 'published' in p.meta)
+  for article in articles:
+    if article['url'] == article_name:
+      article.date = article['published'].strftime("%d %b %Y")
+      article.full_body = article.html.replace(DELIMITER, '')
+      return render_template('article.html', article=article)
 
 
 @app.route('/about')
