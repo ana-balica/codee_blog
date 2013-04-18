@@ -1,24 +1,28 @@
 from flask import render_template, request, flash
 from flask.ext.mail import Mail
 from flask.ext.mail import Message
+from flask_flatpages import FlatPages
 from blog import app
-from database import db_session
-from models import Article
 from forms import ContactForm
 
-mail = Mail(app)
+DELIMITER = '<p>&lt;---&gt;</p>'
 
+mail = Mail(app)
+pages = FlatPages(app)
 
 @app.route('/')
 @app.route('/index/')
 @app.route('/blog')
 @app.route('/blog/<int:page>')
 def blog():
-  articles = []
-  for article in db_session.query(Article).order_by(Article.date):
-    article.date = article.date.strftime("%d %b %Y")
-    articles.append(article)
-  return render_template('index.html', articles=articles)
+  articles = (p for p in pages if 'published' in p.meta)
+  latest = sorted(articles, reverse=True,
+                    key=lambda p: p.meta['published'])
+  for article in latest:
+    article.date = article['published'].strftime("%d %b %Y")
+    article.preview = extract_preview(latest[0].html)
+    article.full_body = article.html.replace(DELIMITER, '')
+  return render_template('index.html', articles=latest[:10])
 
 
 @app.route('/article/<int:id>')
@@ -53,15 +57,12 @@ def page_not_found(error):
   return "404", 404
 
 
-@app.teardown_request
-def shutdown_session(exception=None):
-  db_session.remove()
-
-
 def format_mail(name, email, message):
   data = 'Name:\t\t' + name + '\n\n'
   data += 'Email:\t\t' + email + '\n\n'
   data += 'Message body:\n\n' + message
   return data
 
-
+def extract_preview(body):
+  until = body.find(DELIMITER)
+  return body[:until]
