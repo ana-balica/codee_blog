@@ -116,11 +116,11 @@ img {
   font-weight: 600;
 }
 .article a {
-  color: #262626;
-}
-.article a:hover {
   color: #3e9cd1;
   text-decoration: none;
+}
+.article a:hover {
+  text-decoration: underline;
 }
 .article .date {
   font-size: 14px;
