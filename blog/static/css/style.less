@@ -102,19 +102,22 @@ img {display: block; margin: 20px auto;}
 		font-size: 20px;
 		margin: 22px 0 10px;
 	}
-	p, ul li {
+	p, ul li, ol li {
 		font-family: 'Crimson Text', serif;
 		font-size: 19px;
 		color: @dark-grey;
 		line-height: 1.25em;
 		margin-bottom: 10px;
 	}
-	ul {
+	ul, ol {
 		margin-left: 50px;
 	}
-	ul li {
+	ul li, ol li {
 		margin-bottom: 5px;
 		list-style-type: square;
+	}
+	ol li {
+		list-style-type: decimal;
 	}
 	strong {
 		font-weight: @bolder-weight;
@@ -131,7 +134,19 @@ img {display: block; margin: 20px auto;}
 		color: @grey;
 		margin: 10px 0 15px 0;
 	}
+	p code {
+		font-family: monospace;
+		border: 1px solid #DEDEDE;
+		background-color: ghostWhite;
+		padding: 2px;
+		font-size: 13px;
+		line-height: 16px;
+	}
+	img {
+		max-width: 500px;
+	}
 }
+
 
 .article, .contact, .about h1 {
 	font-size: 50px;
