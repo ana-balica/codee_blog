@@ -80,7 +80,7 @@ def contact():
 
 @app.errorhandler(404)
 def page_not_found(error):
-  return "404", 404
+  return render_template('404.html'), 404
 
 
 def format_mail(name, email, message):
