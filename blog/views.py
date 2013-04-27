@@ -6,7 +6,7 @@ from blog import app
 from forms import ContactForm
 
 DELIMITER = '<p>&lt;---&gt;</p>'
-ARTICLES_PER_PAGE = 2
+ARTICLES_PER_PAGE = 10
 
 mail = Mail(app)
 pages = FlatPages(app)
