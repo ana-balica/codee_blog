@@ -1,14 +1,24 @@
 $(document).ready(function() {
-  $("a:contains('about')").click(function(e) {
+
+  $("body").on('click', '.sidebar ul a, a#index, a.read_more, a.pagination_', function(e) {
     e.preventDefault();
-    c('cliked');
+    var page_url = $(e.currentTarget).attr('href');
     $.ajax({
       type: 'GET',
-      url: $SCRIPT_ROOT + '/about',
+      url: $SCRIPT_ROOT + page_url,
       contentType: "application/json; charset=utf-8",
       success: function(data) {
         var content_data = $(data['data']).find('#ajax_content');
         $('#content').hide().html(content_data).fadeIn('slow');
+
+        // update the page title
+        $('title').html(data['title']);
+
+        // update the URL
+        window.history.pushState("","", page_url);
+
+        // scroll to top
+        window.scrollTo(0, 0);
       }
     });
   });

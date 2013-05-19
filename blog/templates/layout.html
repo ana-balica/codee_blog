@@ -31,14 +31,14 @@
   <body>
     <div class="sidebar">
       <img src="{{ url_for('static', filename='img/rss.png') }}" class="rss_icon" title="Well, there's no RSS feed here. I just like the icon.">
-      <a href="/" class="title">
+      <a href="/" class="title" id="index">
         <div class="code">code</div>
         <div class="speculations">speculations</div>
       </a>
       <ul>
         <li><a href="{{ url_for('blog') }}" id="blog">blog</a></li>
-        <li><a href="{{ url_for('contact') }}">contact</a></li>
-        <li><a href="{{ url_for('about') }}">about</a></li>
+        <li><a href="{{ url_for('contact') }}"  id="contact">contact</a></li>
+        <li><a href="{{ url_for('about') }}"  id="about">about</a></li>
       </ul>
     </div>
     <div class="content" id="content">

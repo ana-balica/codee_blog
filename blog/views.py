@@ -6,7 +6,7 @@ from blog import app
 from forms import ContactForm
 
 DELIMITER = '<p>&lt;---&gt;</p>'
-ARTICLES_PER_PAGE = 10
+ARTICLES_PER_PAGE = 2
 
 mail = Mail(app)
 pages = FlatPages(app)
@@ -42,6 +42,11 @@ def blog(page = 1):
   if len(sorted_articles) < end+1:
     past = False
 
+  if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+    template = render_template('index.html', articles=latest, future=future,
+            past=past, previous_page=previous_page, next_page=next_page)
+    return jsonify({'data': template, 'title': 'Code Speculations'})
+
   return render_template('index.html', articles=latest, future=future, 
             past=past, previous_page=previous_page, next_page=next_page)
 
@@ -49,10 +54,15 @@ def blog(page = 1):
 @app.route('/blog/a/<article_name>')
 def article(article_name):
   articles = (p for p in pages if 'published' in p.meta)
+
   for article in articles:
     if article['url'] == article_name:
       article.date = article['published'].strftime("%d %b %Y")
       article.full_body = article.html.replace(DELIMITER, '')
+      if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        template = render_template('article.html', article=article)
+        return jsonify({'data': template, 'title': 'Code Speculations -' + article['title']})
+
       return render_template('article.html', article=article)
 
 
@@ -60,7 +70,7 @@ def article(article_name):
 def about():
   if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
     template = render_template('about.html')
-    return jsonify({'data': template})
+    return jsonify({'data': template, 'title': 'Code Speculations - About Ana'})
   return render_template('about.html')
 
 
@@ -78,6 +88,11 @@ def contact():
     form = ContactForm()
     flash('Thank you')
     return render_template('contact.html', form=form)
+
+  if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+    template = render_template('contact.html', form=form)
+    return jsonify({'data': template, 'title': 'Code Speculations - Contact Ana'})
+
   return render_template('contact.html', form=form)
 
 

@@ -1,28 +1,33 @@
 {% extends "layout.html" %}
 {% block title %}Code Speculations{% endblock %}
 {% block content %}
-{% for article in articles %}
-<div class="article">
-  <h1>{{ article.title }}</h1>
-  <div class="date">{{ article.date }}</div>
-  <div>
-    {{ article.preview|safe }}
+  <div id="ajax_content">
+    {% for article in articles %}
+      <div class="article">
+        <h1>{{ article.title }}</h1>
+
+        <div class="date">{{ article.date }}</div>
+        <div>
+          {{ article.preview|safe }}
+        </div>
+      <a href="{{ url_for('article', article_name=article['url']) }}" class="read_more right">
+          continue reading &raquo;
+        </a>
+      </div>
+    {% endfor %}
+    <div class="pagination">
+      {% if past %}
+        <a href="{{ url_for('blog', page=previous_page) }}" class='pagination_ left'>
+          <div class="arrows arrow_left left"></div>
+          <p class="left">past</p>
+        </a>
+      {% endif %}
+      {% if future %}
+        <a href="{{ url_for('blog', page=next_page) }}" class='pagination_ right'>
+          <div class="arrows arrow_right right"></div>
+          <p class="right">future</p>
+        </a>
+      {% endif %}
+    </div>
   </div>
-  <a href="{{ url_for('article', article_name=article['url']) }}"><button class="read_more right">continue reading &raquo;</button></a>
-</div>
-{% endfor %}
-<div class="pagination">
-  {% if past %}
-  <a href="{{ url_for('blog', page=previous_page) }}" class='left'>
-    <div class="arrows arrow_left left"></div>
-    <p class="left">past</p>
-  </a>
-  {% endif %}
-  {% if future %}
-  <a href="{{ url_for('blog', page=next_page) }}" class='right'>
-    <div class="arrows arrow_right right"></div>
-    <p class="right">future</p>
-  </a>
-  {% endif %}
-</div>
 {% endblock %}
