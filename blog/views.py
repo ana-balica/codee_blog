@@ -6,21 +6,22 @@ from blog import app
 from forms import ContactForm
 
 DELIMITER = '<p>&lt;---&gt;</p>'
-ARTICLES_PER_PAGE = 2
+ARTICLES_PER_PAGE = 10
 
 mail = Mail(app)
 pages = FlatPages(app)
+
 
 @app.route('/')
 @app.route('/index/')
 @app.route('/blog/')
 @app.route('/blog/p/<int:page>')
-def blog(page = 1):
+def blog(page=1):
   articles = (p for p in pages if 'published' in p.meta)
   sorted_articles = sorted(articles, reverse=True,
-                    key=lambda p: p.meta['published'])
-  start = (page-1)*ARTICLES_PER_PAGE
-  end = page*ARTICLES_PER_PAGE
+                           key=lambda p: p.meta['published'])
+  start = (page - 1) * ARTICLES_PER_PAGE
+  end = page * ARTICLES_PER_PAGE
   latest = sorted_articles[start:end]
 
   if not latest:
@@ -33,22 +34,22 @@ def blog(page = 1):
 
   future = True
   past = True
-  previous_page = page+1
-  next_page = page-1
+  previous_page = page + 1
+  next_page = page - 1
 
   if page == 1:
     future = False
 
-  if len(sorted_articles) < end+1:
+  if len(sorted_articles) < end + 1:
     past = False
 
   if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
     template = render_template('index.html', articles=latest, future=future,
-            past=past, previous_page=previous_page, next_page=next_page)
+                               past=past, previous_page=previous_page, next_page=next_page)
     return jsonify({'data': template, 'title': 'Code Speculations'})
 
-  return render_template('index.html', articles=latest, future=future, 
-            past=past, previous_page=previous_page, next_page=next_page)
+  return render_template('index.html', articles=latest, future=future,
+                         past=past, previous_page=previous_page, next_page=next_page)
 
 
 @app.route('/blog/a/<article_name>')
@@ -106,6 +107,7 @@ def format_mail(name, email, message):
   data += 'Email:\t\t' + email + '\n\n'
   data += 'Message body:\n\n' + message
   return data
+
 
 def extract_preview(body):
   until = body.find(DELIMITER)

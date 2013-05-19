@@ -1,5 +1,6 @@
 from wtforms import Form, TextField, TextAreaField, SubmitField, validators
 
+
 class ContactForm(Form):
   '''
   Simple contact form on the contact page
