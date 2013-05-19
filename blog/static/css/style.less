@@ -155,15 +155,17 @@ img {display: block; margin: 20px auto;}
 	color: @dark-grey;
 }
 
-.read_more {
+a.read_more {
 	font-family: 'Source Sans Pro', sans-serif;
 	font-variant: small-caps;
 	font-size: 17px;
 	color: @light-grey;
 	background: @darker-grey;
-	padding: 4px 9px 7px;
+	padding: 6px 9px 9px;
 	border: none;
-	cursor: pointer;
+	&:hover {
+		text-decoration: none;
+	}
 }
 
 /* CONTACT FORM */

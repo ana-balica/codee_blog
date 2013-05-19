@@ -152,15 +152,17 @@ img {
   font-weight: 500;
   color: #333333;
 }
-.read_more {
+a.read_more {
   font-family: 'Source Sans Pro', sans-serif;
   font-variant: small-caps;
   font-size: 17px;
   color: #dadada;
   background: #262626;
-  padding: 4px 9px 7px;
+  padding: 6px 9px 9px;
   border: none;
-  cursor: pointer;
+}
+a.read_more:hover {
+  text-decoration: none;
 }
 /* CONTACT FORM */
 form,
