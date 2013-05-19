@@ -1,4 +1,4 @@
-from flask import render_template, request, flash, redirect, url_for
+from flask import render_template, request, flash, redirect, url_for, jsonify
 from flask.ext.mail import Mail
 from flask.ext.mail import Message
 from flask_flatpages import FlatPages
@@ -58,6 +58,9 @@ def article(article_name):
 
 @app.route('/about')
 def about():
+  if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+    template = render_template('about.html')
+    return jsonify({'data': template})
   return render_template('about.html')
 
 
