@@ -32,16 +32,9 @@ def blog(page=1):
     article.preview = extract_preview(article.html)
     article.full_body = article.html.replace(DELIMITER, '')
 
-  future = True
-  past = True
+  future, past = set_pagination(page, len(sorted_articles), end)
   previous_page = page + 1
   next_page = page - 1
-
-  if page == 1:
-    future = False
-
-  if len(sorted_articles) < end + 1:
-    past = False
 
   if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
     template = render_template('index.html', articles=latest, future=future,
@@ -112,3 +105,16 @@ def format_mail(name, email, message):
 def extract_preview(body):
   until = body.find(DELIMITER)
   return body[:until]
+
+
+def set_pagination(page, nr_of_articles, nr_of_articles_on_page):
+  future = True
+  past = True
+
+  if page == 1:
+    future = False
+
+  if nr_of_articles < nr_of_articles_on_page + 1:
+    past = False
+
+  return (future, past)
