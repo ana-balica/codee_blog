@@ -36,13 +36,11 @@ def blog(page=1):
   previous_page = page + 1
   next_page = page - 1
 
+  template = render_template('index.html', articles=latest, future=future,
+                            past=past, previous_page=previous_page, next_page=next_page)
   if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-    template = render_template('index.html', articles=latest, future=future,
-                               past=past, previous_page=previous_page, next_page=next_page)
     return jsonify({'data': template, 'title': 'Code Speculations'})
-
-  return render_template('index.html', articles=latest, future=future,
-                         past=past, previous_page=previous_page, next_page=next_page)
+  return template
 
 
 @app.route('/blog/a/<article_name>')
@@ -53,19 +51,18 @@ def article(article_name):
     if article['url'] == article_name:
       article.date = article['published'].strftime("%d %b %Y")
       article.full_body = article.html.replace(DELIMITER, '')
+      template = render_template('article.html', article=article)
       if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        template = render_template('article.html', article=article)
         return jsonify({'data': template, 'title': 'Code Speculations -' + article['title']})
-
-      return render_template('article.html', article=article)
+      return template
 
 
 @app.route('/about')
 def about():
+  template = render_template('about.html')
   if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-    template = render_template('about.html')
     return jsonify({'data': template, 'title': 'Code Speculations - About Ana'})
-  return render_template('about.html')
+  return template
 
 
 @app.route('/contact', methods=['GET', 'POST'])
@@ -83,11 +80,10 @@ def contact():
     flash('Thank you')
     return render_template('contact.html', form=form)
 
+  template = render_template('contact.html', form=form)
   if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-    template = render_template('contact.html', form=form)
     return jsonify({'data': template, 'title': 'Code Speculations - Contact Ana'})
-
-  return render_template('contact.html', form=form)
+  return template
 
 
 @app.errorhandler(404)
