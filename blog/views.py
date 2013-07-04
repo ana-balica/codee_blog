@@ -53,7 +53,7 @@ def article(article_name):
       article.full_body = article.html.replace(DELIMITER, '')
       template = render_template('article.html', article=article)
       if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        return jsonify({'data': template, 'title': 'Code Speculations -' + article['title']})
+        return jsonify({'data': template, 'title': 'Code Speculations - ' + article['title']})
       return template
 
 
