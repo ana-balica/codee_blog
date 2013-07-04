@@ -20,6 +20,9 @@ $(document).ready(function () {
 
         // scroll to top
         window.scrollTo(0, 0);
+
+        // syntax highlight everything on page
+        Rainbow.color();
       }
     });
   });
