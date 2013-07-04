@@ -7,6 +7,7 @@ $(document).ready(function () {
       type: 'GET',
       url: $SCRIPT_ROOT + page_url,
       contentType: "application/json; charset=utf-8",
+      dataType: "json",
       success: function (data) {
         var content_data = $(data['data']).find('#ajax_content');
         $('#content').hide().html(content_data).fadeIn('slow');
