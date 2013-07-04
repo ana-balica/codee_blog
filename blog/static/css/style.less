@@ -1,6 +1,7 @@
 /* COLOURS */
 @light-pink: #f4eee5;
 @light-grey: #dadada;
+@very-light-grey: #f0f0f0;
 @grey: #838383;
 @dark-grey: #333333;
 @darker-grey: #262626;
@@ -8,6 +9,7 @@
 @error-blue: #3E9CD1;
 @pale-cyan: #79C4D3;
 @pink: #FF3044;
+// #F3F3F3
 
 /* FONT WEIGHTS */
 @light-weight: 200;
@@ -103,7 +105,7 @@ em {font-style: italic;}
 		font-size: 20px;
 		margin: 22px 0 10px;
 	}
-	p, ul li, ol li {
+	p, ul li, ol li, blockquote {
 		font-family: 'Crimson Text', serif;
 		font-size: 19px;
 		color: @dark-grey;
@@ -146,6 +148,11 @@ em {font-style: italic;}
 	}
 	img {
 		max-width: 500px;
+	}
+	blockquote {
+		font-size: 24px;
+		background-color: @very-light-grey;
+		padding: 12px;
 	}
 }
 
