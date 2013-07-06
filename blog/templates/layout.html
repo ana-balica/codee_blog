@@ -38,8 +38,9 @@
 </head>
 <body>
 <div class="sidebar">
-  <img src="{{ url_for('static', filename='img/rss.png') }}" class="rss_icon"
-       title="Well, there's no RSS feed here. I just like the icon.">
+  <a href="{{ url_for('feeds') }}">
+    <img src="{{ url_for('static', filename='img/rss.png') }}" class="rss_icon">
+  </a>
   <a href="/" class="title" id="index">
     <div class="code">code</div>
     <div class="speculations">speculations</div>
