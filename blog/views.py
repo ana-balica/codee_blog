@@ -92,7 +92,7 @@ def contact():
 @app.route('/atom.xml')
 def feeds():
   latest = get_latest_articles(1, ARTICLES_PER_FEED)
-  feed = AtomFeed('Recent Articles', feed_url=request.url, url=request.url_root)
+  feed = AtomFeed('Code Speculations', feed_url=request.url, url=request.url_root)
 
   for article in latest:
     summary = extract_preview(article.html)
