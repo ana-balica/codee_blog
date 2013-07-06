@@ -114,7 +114,7 @@ def page_not_found(error):
 
 
 def make_external(url):
-    return urljoin(request.url_root, url)
+    return urljoin(request.url_root, url_for('article', article_name=url))
 
 def format_mail(name, email, message):
   data = 'Name:\t\t' + name + '\n\n'
