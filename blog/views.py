@@ -1,12 +1,18 @@
+from urlparse import urljoin
+
 from flask import render_template, request, flash, redirect, url_for, jsonify
 from flask.ext.mail import Mail
 from flask.ext.mail import Message
 from flask_flatpages import FlatPages
+from werkzeug.contrib.atom import AtomFeed
+
 from blog import app
 from forms import ContactForm
 
 DELIMITER = '<p>&lt;---&gt;</p>'
 ARTICLES_PER_PAGE = 10
+ARTICLES_PER_FEED = 20
+ME = "Ana Balica"
 
 mail = Mail(app)
 pages = FlatPages(app)
@@ -17,22 +23,20 @@ pages = FlatPages(app)
 @app.route('/blog/')
 @app.route('/blog/p/<int:page>')
 def blog(page=1):
-  articles = (p for p in pages if 'published' in p.meta)
-  sorted_articles = sorted(articles, reverse=True,
-                           key=lambda p: p.meta['published'])
-  start = (page - 1) * ARTICLES_PER_PAGE
-  end = page * ARTICLES_PER_PAGE
-  latest = sorted_articles[start:end]
+  latest = get_latest_articles(page, ARTICLES_PER_PAGE)
 
   if not latest:
     return redirect(url_for('blog'))
 
   for article in latest:
     article.date = article['published'].strftime("%d %b %Y")
+    print article['published']
     article.preview = extract_preview(article.html)
     article.full_body = article.html.replace(DELIMITER, '')
 
-  future, past = set_pagination(page, len(sorted_articles), end)
+  total = get_articles_total()
+  end = page * ARTICLES_PER_PAGE
+  future, past = set_pagination(page, total, end)
   previous_page = page + 1
   next_page = page - 1
 
@@ -86,10 +90,32 @@ def contact():
   return template
 
 
+@app.route('/atom.xml')
+def feeds():
+  latest = get_latest_articles(1, ARTICLES_PER_FEED)
+  feed = AtomFeed('Recent Articles', feed_url=request.url, url=request.url_root)
+
+  for article in latest:
+    summary = extract_preview(article.html)
+    content = article.html.replace(DELIMITER, '')
+    feed.add(article['title'],
+             summary=summary,
+             content=content,
+             content_type="html",
+             author=ME,
+             url=make_external(article['url']),
+             updated=article['published'],
+             )
+  return feed.get_response()
+
+
 @app.errorhandler(404)
 def page_not_found(error):
   return render_template('404.html'), 404
 
+
+def make_external(url):
+    return urljoin(request.url_root, url)
 
 def format_mail(name, email, message):
   data = 'Name:\t\t' + name + '\n\n'
@@ -103,6 +129,22 @@ def extract_preview(body):
   return body[:until]
 
 
+def get_latest_articles(page, nr_of_articles):
+  articles = (p for p in pages if 'published' in p.meta)
+  sorted_articles = sorted(articles, reverse=True,
+                           key=lambda p: p.meta['published'])
+  start = (page - 1) * nr_of_articles
+  end = page * nr_of_articles
+  latest = sorted_articles[start:end]
+  return latest
+
+
+def get_articles_total():
+  articles = (p for p in pages if 'published' in p.meta)
+  length = sum(1 for _ in articles)
+  return length
+
+
 def set_pagination(page, nr_of_articles, nr_of_articles_on_page):
   future = True
   past = True
@@ -112,5 +154,4 @@ def set_pagination(page, nr_of_articles, nr_of_articles_on_page):
 
   if nr_of_articles < nr_of_articles_on_page + 1:
     past = False
-
   return (future, past)
