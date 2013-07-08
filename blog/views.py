@@ -39,33 +39,39 @@ def blog(page=1):
   previous_page = page + 1
   next_page = page - 1
 
+  is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+  ajax = True if is_ajax else False
   template = render_template('index.html', articles=latest, future=future,
-                            past=past, previous_page=previous_page, next_page=next_page)
-  if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-    return jsonify({'data': template, 'title': 'Code Speculations'})
-  return template
+                             past=past, previous_page=previous_page,
+                             next_page=next_page, ajax=ajax)
+  return jsonify({'data': template, 'title': 'Code Speculations'}) \
+    if is_ajax else template
 
 
 @app.route('/blog/a/<article_name>')
 def article(article_name):
   articles = (p for p in pages if 'published' in p.meta)
+  is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+  ajax = True if is_ajax else False
 
   for article in articles:
     if article['url'] == article_name:
       article.date = article['published'].strftime("%d %b %Y")
       article.full_body = article.html.replace(DELIMITER, '')
-      template = render_template('article.html', article=article)
-      if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        return jsonify({'data': template, 'title': 'Code Speculations - ' + article['title']})
-      return template
+
+      template = render_template('article.html', article=article, ajax=ajax)
+      return jsonify({'data': template,
+                      'title': 'Code Speculations - ' + article['title']}) \
+                      if is_ajax else template
 
 
 @app.route('/about')
 def about():
-  template = render_template('about.html')
-  if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-    return jsonify({'data': template, 'title': 'Code Speculations - About Ana'})
-  return template
+  is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+  ajax = True if is_ajax else False
+  template = render_template('about.html', ajax=ajax)
+  return jsonify({'data': template, 'title': 'Code Speculations - About Ana'}) \
+    if is_ajax else template
 
 
 @app.route('/contact', methods=['GET', 'POST'])
@@ -83,16 +89,18 @@ def contact():
     flash('Thank you')
     return render_template('contact.html', form=form)
 
-  template = render_template('contact.html', form=form)
-  if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-    return jsonify({'data': template, 'title': 'Code Speculations - Contact Ana'})
-  return template
+  is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+  ajax = True if is_ajax else False
+  template = render_template('contact.html', form=form, ajax=ajax)
+  return jsonify({'data': template, 'title': 'Code Speculations - Contact Ana'}) \
+    if is_ajax else template
 
 
 @app.route('/atom.xml')
 def feeds():
   latest = get_latest_articles(1, ARTICLES_PER_FEED)
-  feed = AtomFeed('Code Speculations', feed_url=request.url, url=request.url_root)
+  feed = AtomFeed('Code Speculations', feed_url=request.url,
+                  url=request.url_root)
 
   for article in latest:
     summary = extract_preview(article.html)
@@ -104,7 +112,7 @@ def feeds():
              author=ME,
              url=make_external(article['url']),
              updated=article['published'],
-             )
+    )
   return feed.get_response()
 
 
