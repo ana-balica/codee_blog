@@ -1,6 +1,7 @@
 Flask==0.9
 Flask-FlatPages==0.5
 Flask-Mail==0.8.2
+Flask-Testing==0.4
 Flask-WTF==0.8.3
 Jinja2==2.6
 Markdown==2.3.1
@@ -11,4 +12,5 @@ argparse==1.2.1
 blinker==1.2
 email==6.0.0a1
 gunicorn==0.17.2
+twill==0.9
 wsgiref==0.1.2
