@@ -40,10 +40,9 @@ def blog(page=1):
     next_page = page - 1
 
     is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
-    ajax = True if is_ajax else False
     template = render_template('index.html', articles=latest, future=future,
                                past=past, previous_page=previous_page,
-                               next_page=next_page, ajax=ajax)
+                               next_page=next_page, ajax=is_ajax)
     return jsonify({'data': template, 'title': 'Code Speculations'}) \
         if is_ajax else template
 
@@ -52,7 +51,6 @@ def blog(page=1):
 def article(article_name):
     articles = (p for p in pages if 'published' in p.meta)
     is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
-    ajax = True if is_ajax else False
 
     for article in articles:
         if article['url'] == article_name:
@@ -60,7 +58,7 @@ def article(article_name):
             article.full_body = article.html.replace(DELIMITER, '')
 
             template = render_template('article.html', article=article,
-                                       ajax=ajax)
+                                       ajax=is_ajax)
             return jsonify({'data': template,
                             'title': 'Code Speculations - ' + article['title']}) \
                 if is_ajax else template
@@ -69,8 +67,8 @@ def article(article_name):
 @app.route('/about')
 def about():
     is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
-    ajax = True if is_ajax else False
-    template = render_template('about.html', ajax=ajax)
+    # ajax = True if is_ajax else False
+    template = render_template('about.html', ajax=is_ajax)
     return jsonify({'data': template, 'title': 'Code Speculations - About Ana'}) \
         if is_ajax else template
 
@@ -91,8 +89,7 @@ def contact():
         return render_template('contact.html', form=form)
 
     is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
-    ajax = True if is_ajax else False
-    template = render_template('contact.html', form=form, ajax=ajax)
+    template = render_template('contact.html', form=form, ajax=is_ajax)
     return jsonify(
         {'data': template, 'title': 'Code Speculations - Contact Ana'}) \
         if is_ajax else template
