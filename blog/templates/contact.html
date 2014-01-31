@@ -1,36 +1,47 @@
 {% from "_formhelper.html" import render_field %}
-{% if ajax == False %}
-  {% extends "layout.html" %}
-  {% block title %}Code Speculations - Contact Ana{% endblock %}
+{% if ajax_errors %}
+  {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+    {% for error in field_errors %}
+      <li>{{ form[field_name].label }}: {{ error }}</li>
+    {% endfor %}
+  {% endfor %}
 {% else %}
-  {% block content %}
-    <div class="contact" id="ajax_content">
-      <h1>Leave me a message</h1>
+  {% if ajax == False %}
+    {% extends "layout.html" %}
+    {% block title %}Code Speculations - Contact Ana{% endblock %}
+  {% else %}
+    {% block content %}
+      <div class="contact" id="ajax_content">
+        <h1>Leave me a message</h1>
 
-      <form method="post" {% if ajax == False %} action="{{ url_for('contact') }}"{% endif %}>
-        {{ render_field(form.name, placeholder='Name') }}
-        {{ render_field(form.email, placeholder='Email') }}
-        {{ render_field(form.message, placeholder='Type your message here', cols='63', rows='10') }}
-        <!-- DISPLAY ERRORS -->
-        {% if form.errors %}
+        <form method="post" {% if ajax == False %}
+              action="{{ url_for('contact') }}"{% endif %}>
+          {{ render_field(form.name, placeholder='Name') }}
+          {{ render_field(form.email, placeholder='Email') }}
+          {{ render_field(form.message, placeholder='Type your message here', cols='63', rows='10') }}
+          <!-- DISPLAY ERRORS -->
+
           <ul class="errors">
-            {% for field_name, field_errors in form.errors|dictsort if field_errors %}
-              {% for error in field_errors %}
-                <li>{{ form[field_name].label }}: {{ error }}</li>
+            {% if form.errors %}
+              {% for field_name, field_errors in form.errors|dictsort if field_errors %}
+                {% for error in field_errors %}
+                  <li>{{ form[field_name].label }}: {{ error }}</li>
+                {% endfor %}
               {% endfor %}
-            {% endfor %}
+            {% endif %}
           </ul>
-        {% endif %}
-        {{ render_field(form.submit, class='left', value='submit') }}
-        <!-- FLASH MESSAGES -->
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            {% for message in messages %}
-              <div class='flash left'>{{ message }}</div>
-            {% endfor %}
-          {% endif %}
-        {% endwith %}
-      </form>
-    </div>
-  {% endblock %}
+
+          {{ render_field(form.submit, class='left', value='submit') }}
+          <!-- FLASH MESSAGES -->
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              {% for message in messages %}
+                <div class='flash left'>{{ message }}</div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </form>
+      </div>
+    {% endblock %}
+  {% endif %}
 {% endif %}
