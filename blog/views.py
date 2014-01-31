@@ -76,19 +76,23 @@ def about():
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     form = ContactForm(request.form)
-    if request.method == 'POST' and form.validate():
-        name, email, message = form.name.data, form.email.data, form.message.data
-        message = format_mail(name, email, message)
-        msg = Message('[Code Speculation] Contact',
-                      sender="ana.balica@gmail.com",
-                      recipients=["ana.balica@gmail.com"])
-        msg.body = message
-        mail.send(msg)
-        form = ContactForm()
-        flash('Thank you')
-        return render_template('contact.html', form=form)
-
     is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+    if request.method == 'POST':
+        if form.validate():
+            name, email, message = form.name.data, form.email.data, form.message.data
+            message = format_mail(name, email, message)
+            msg = Message('[Code Speculation] Contact',
+                          sender="ana.balica@gmail.com",
+                          recipients=["ana.balica@gmail.com"])
+            msg.body = message
+            mail.send(msg)
+            form = ContactForm()
+            flash('Thank you')
+            return render_template('contact.html', form=form)
+        else:
+            errors = form.errors
+            return jsonify({'errors': errors})
+
     template = render_template('contact.html', form=form, ajax=is_ajax)
     return jsonify(
         {'data': template, 'title': 'Code Speculations - Contact Ana'}) \
