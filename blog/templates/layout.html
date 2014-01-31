@@ -7,14 +7,14 @@
   <link href='http://fonts.googleapis.com/css?family=Dosis|Crimson+Text|Source+Sans+Pro:400' rel='stylesheet'
         type='text/css'>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')|autoversion }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/pastie.css') }}">
   <link rel="alternate" type="application/atom+xml" href="{{ url_for('feeds') }}"
         title="Code Speculations Latest Articles">
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="{{ url_for('static', filename='js/jquery-1.10.2.min.js') }}"></script>
   <script src="{{ url_for('static', filename='js/rainbow-custom.min.js') }}"></script>
-  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/script.js')|autoversion }}"></script>
 
   <script type="text/javascript">
     $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
