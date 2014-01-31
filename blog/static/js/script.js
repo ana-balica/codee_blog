@@ -21,6 +21,22 @@ $(document).ready(function () {
             }
         });
     });
+
+    $("body").on('submit', 'form', function (event) {
+        event.preventDefault();
+        var $name = $("#name").val();
+        var $email = $("#email").val();
+        var $message = $("#message").val();
+        $.ajax({
+            type: 'POST',
+            url: $SCRIPT_ROOT + '/contact',
+            data: { name: $name, email: $email, message: $message },
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            success: function (data) {
+                c(data);
+            }
+        });
+    });
 });
 
 // shorter version of console.log
