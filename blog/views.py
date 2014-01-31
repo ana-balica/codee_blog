@@ -1,3 +1,4 @@
+import os
 from urlparse import urljoin
 
 from flask import render_template, request, flash, redirect, url_for, jsonify
@@ -118,6 +119,17 @@ def feeds():
                  updated=article['published'],
         )
     return feed.get_response()
+
+
+@app.template_filter('autoversion')
+def autoversion_filter(filename):
+    fullpath = os.path.join('blog/', filename[1:])
+    try:
+        timestamp = str(os.path.getmtime(fullpath))
+    except OSError:
+        return filename
+    newfilename = "{0}?v={1}".format(filename, timestamp)
+    return newfilename
 
 
 @app.errorhandler(404)
