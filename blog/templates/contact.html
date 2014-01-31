@@ -7,7 +7,7 @@
     <div class="contact" id="ajax_content">
       <h1>Leave me a message</h1>
 
-      <form method="post" action="{{ url_for('contact') }}">
+      <form method="post" {% if ajax == False %} action="{{ url_for('contact') }}"{% endif %}>
         {{ render_field(form.name, placeholder='Name') }}
         {{ render_field(form.email, placeholder='Email') }}
         {{ render_field(form.message, placeholder='Type your message here', cols='63', rows='10') }}
