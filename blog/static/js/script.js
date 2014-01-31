@@ -33,7 +33,7 @@ $(document).ready(function () {
             data: { name: $name, email: $email, message: $message },
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
             success: function (data) {
-                c(data);
+                $("ul.errors").hide().html(data['errors']).fadeIn('slow');
             }
         });
     });
