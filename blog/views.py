@@ -90,7 +90,7 @@ def contact():
             flash('Thank you')
             return render_template('contact.html', form=form)
         else:
-            template = render_template('contact.html', form=form, ajax_errors=True, ajax=is_ajax)
+            template = render_template('contact.html', form=form, ajax_errors=is_ajax, ajax=is_ajax)
             return jsonify({'errors': template}) if is_ajax else template
 
     template = render_template('contact.html', form=form, ajax=is_ajax)
