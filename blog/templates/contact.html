@@ -33,13 +33,7 @@
 
           {{ render_field(form.submit, class='left', value='submit') }}
           <!-- FLASH MESSAGES -->
-          {% with messages = get_flashed_messages() %}
-            {% if messages %}
-              {% for message in messages %}
-                <div class='flash left'>{{ message }}</div>
-              {% endfor %}
-            {% endif %}
-          {% endwith %}
+          <div class='flash left'>{{ flash_msg }}</div>
         </form>
       </div>
     {% endblock %}

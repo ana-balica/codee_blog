@@ -33,7 +33,16 @@ $(document).ready(function () {
             data: { name: $name, email: $email, message: $message },
             contentType: "application/x-www-form-urlencoded; charset=utf-8",
             success: function (data) {
-                $("ul.errors").hide().html(data['errors']).fadeIn('slow');
+                var $errors = $("ul.errors");
+                var $flash = $(".flash");
+                $($errors).hide();
+                $($flash).hide();
+                if (data['errors']) {
+                    $($errors).html(data['errors']).fadeIn('slow');
+                }
+                if (data['flash_msg']) {
+                    $($flash).html(data['flash_msg']).fadeIn('slow');
+                }
             }
         });
     });

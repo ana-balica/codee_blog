@@ -87,8 +87,9 @@ def contact():
             msg.body = message
             mail.send(msg)
             form = ContactForm()
-            flash('Thank you')
-            return render_template('contact.html', form=form)
+            flash_msg = 'Thank you'
+            template = render_template('contact.html', form=form, ajax=is_ajax, flash_msg=flash_msg)
+            return jsonify({'flash_msg': flash_msg}) if is_ajax else template
         else:
             template = render_template('contact.html', form=form, ajax_errors=is_ajax, ajax=is_ajax)
             return jsonify({'errors': template}) if is_ajax else template
