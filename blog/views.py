@@ -9,11 +9,8 @@ from werkzeug.contrib.atom import AtomFeed
 
 from blog import app
 from forms import ContactForm
+from blog.constants import *
 
-DELIMITER = '<p>&lt;---&gt;</p>'
-ARTICLES_PER_PAGE = 10
-ARTICLES_PER_FEED = 20
-ME = "Ana Balica"
 
 mail = Mail(app)
 pages = FlatPages(app)
