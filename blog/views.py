@@ -1,7 +1,7 @@
 import os
 from urlparse import urljoin
 
-from flask import render_template, request, flash, redirect, url_for, jsonify
+from flask import render_template, request, redirect, url_for, jsonify
 from flask.ext.mail import Mail
 from flask.ext.mail import Message
 from flask_flatpages import FlatPages
