@@ -21,6 +21,13 @@ pages = FlatPages(app)
 @app.route('/blog/')
 @app.route('/blog/p/<int:page>')
 def blog(page=1):
+    """ Blog page with latest previews of articles displayed, also considered an
+    index page
+
+    :param page: integer that represents the number of the page to be displayed,
+                 lower the number - most recent
+    :return: json object with template data or rendered template
+    """
     latest = get_latest_articles(page, ARTICLES_PER_PAGE)
 
     if not latest:
@@ -47,6 +54,11 @@ def blog(page=1):
 
 @app.route('/blog/a/<article_name>')
 def article(article_name):
+    """ Page with a single full text article displayed
+
+    :param article_name: name of the article as in URL
+    :return: json object with template data or rendered template
+    """
     articles = (p for p in pages if 'published' in p.meta)
     is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
 
@@ -64,6 +76,10 @@ def article(article_name):
 
 @app.route('/about')
 def about():
+    """ About me page
+
+    :return: json object with template data or rendered template
+    """
     is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
     # ajax = True if is_ajax else False
     template = render_template('about.html', ajax=is_ajax)
@@ -73,6 +89,10 @@ def about():
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
+    """ Page with a simple contact form
+
+    :return: json object with template data or rendered template
+    """
     form = ContactForm(request.form)
     is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
     if request.method == 'POST':
@@ -100,6 +120,10 @@ def contact():
 
 @app.route('/atom.xml')
 def feeds():
+    """ Atom feed of latest articles
+
+    :return: response object for the feed
+    """
     latest = get_latest_articles(1, ARTICLES_PER_FEED)
     feed = AtomFeed('Code Speculations', feed_url=request.url,
                     url=request.url_root)
@@ -120,6 +144,12 @@ def feeds():
 
 @app.template_filter('autoversion')
 def autoversion_filter(filename):
+    """ Modify the asset's filename by appending a version query to it, in order
+    to avoid caching as the file itself is being modified
+
+    :param filename: string filename of the asset
+    :return: filename with a version query appended
+    """
     fullpath = os.path.join('blog/', filename[1:])
     try:
         timestamp = str(os.path.getmtime(fullpath))
@@ -131,6 +161,10 @@ def autoversion_filter(filename):
 
 @app.errorhandler(404)
 def page_not_found(error):
+    """ Not found error
+
+    :return: rendered template
+    """
     return render_template('404.html'), 404
 
 
