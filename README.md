@@ -3,7 +3,7 @@ Code Speculations
 
 Personal blogspace build on [Flask](http://flask.pocoo.org/) using [Flask-FlatPages](http://pythonhosted.org/Flask-FlatPages/).
 
-Currently hosted on heroku - http://code-speculations.herokuapp.com/
+Currently hosted on heroku - http://code-speculations.me
 
 
 Install
