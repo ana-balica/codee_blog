@@ -1,7 +1,7 @@
 import os
 from urlparse import urljoin
 
-from flask import render_template, request, redirect, url_for, jsonify
+from flask import render_template, request, redirect, url_for, jsonify, abort
 from flask.ext.mail import Mail
 from flask.ext.mail import Message
 from flask_flatpages import FlatPages
@@ -72,6 +72,7 @@ def article(article_name):
             return jsonify({'data': template,
                             'title': 'Code Speculations - ' + article['title']}) \
                 if is_ajax else template
+    abort(404)
 
 
 @app.route('/about')
