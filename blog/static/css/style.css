@@ -10,7 +10,8 @@ em{font-style:italic;}
 .speculations{font-size:45px;font-weight:200;margin:-11px 0 0 47px;}
 .sidebar ul{font-variant:small-caps;font-size:25px;margin:115px 0 0 0;}.sidebar ul li a{color:#dadada;text-decoration:none;display:block;padding:10px 0 13px 49px;}.sidebar ul li a:hover{color:#dadada;text-decoration:none;background:transparent;-ms-filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#33FFFFFF,endColorstr=#33FFFFFF)";filter:"progid:DXImageTransform.Microsoft.gradient(startColorstr=#33FFFFFF,endColorstr=#33FFFFFF)";zoom:1;background-color:rgba(255, 255, 255, 0.2);}
 .content{margin:105px 0 150px 350px;width:560px;}
-.article{margin-bottom:100px;color:#333333;}.article h2,.article h3{font-size:26px;font-weight:500;margin:25px 0 10px;}
+.article{margin-bottom:100px;color:#333333;}.article h1>a{color:#333333;}.article h1>a:hover{text-decoration:none;}
+.article h2,.article h3{font-size:26px;font-weight:500;margin:25px 0 10px;}
 .article h4,.article h5,.article h6{font-size:20px;margin:22px 0 10px;}
 .article p,.article ul li,.article ol li,.article blockquote{font-family:'Crimson Text',serif;font-size:19px;color:#333333;line-height:1.25em;margin-bottom:10px;}
 .article ul,.article ol{margin-left:50px;}

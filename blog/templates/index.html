@@ -6,7 +6,9 @@
     <div id="ajax_content">
       {% for article in articles %}
         <div class="article">
-          <h1>{{ article.title }}</h1>
+          <h1><a href="{{ url_for('article', article_name=article['url']) }}">
+            {{ article.title }}</a>
+          </h1>
 
           <div class="date">{{ article.date }}</div>
           <div>

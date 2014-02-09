@@ -96,6 +96,12 @@ em {font-style: italic;}
 .article {
 	margin-bottom: 100px;
 	color: @dark-grey;
+    h1>a {
+        color: @dark-grey;
+        &:hover {
+            text-decoration: none;
+        }
+    }
 	h2, h3 {
 		font-size: 26px;
 		font-weight: @bold-weight;
@@ -125,7 +131,7 @@ em {font-style: italic;}
 	strong {
 		font-weight: @bolder-weight;
 	}
-	a {
+    a {
 		color: @error-blue;
 		text-decoration: none;
 		&:hover {
