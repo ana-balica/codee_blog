@@ -170,10 +170,22 @@ def page_not_found(error):
 
 
 def make_external(url):
+    """ Make absolute URL for articles
+
+    :param url: relative string URL
+    :return: absolute URL
+    """
     return urljoin(request.url_root, url_for('article', article_name=url))
 
 
 def format_mail(name, email, message):
+    """ Simple formatting of a mail
+
+    :param name: sender name
+    :param email: sender email
+    :param message: sender message body
+    :return:
+    """
     data = 'Name:\t\t' + name + '\n\n'
     data += 'Email:\t\t' + email + '\n\n'
     data += 'Message body:\n\n' + message
@@ -181,11 +193,22 @@ def format_mail(name, email, message):
 
 
 def extract_preview(body):
+    """ Exctract article preview from a full text of an article
+
+    :param body: full text body of an article
+    :return: preview of an article
+    """
     until = body.find(DELIMITER)
     return body[:until]
 
 
 def get_latest_articles(page, nr_of_articles):
+    """ Get the sorted articles
+
+    :param page: page number
+    :param nr_of_articles: number of articles to extract
+    :return: list of latest articles
+    """
     articles = (p for p in pages if 'published' in p.meta)
     sorted_articles = sorted(articles, reverse=True,
                              key=lambda p: p.meta['published'])
@@ -196,12 +219,24 @@ def get_latest_articles(page, nr_of_articles):
 
 
 def get_articles_total():
+    """ Get the total number of articles
+
+    :return: total number of articles
+    """
     articles = (p for p in pages if 'published' in p.meta)
     length = sum(1 for _ in articles)
     return length
 
 
 def set_pagination(page, nr_of_articles, nr_of_articles_on_page):
+    """ Decide if pagination is required
+
+    :param page: page number
+    :param nr_of_articles: number of articles available
+    :param nr_of_articles_on_page: number of articles on a page
+    :return: tuple of 2 bool values, the first one shows if pagination is required
+             for the future, the second - for the past
+    """
     future = True
     past = True
 
