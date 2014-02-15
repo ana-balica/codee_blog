@@ -202,18 +202,18 @@ def extract_preview(body):
     return body[:until]
 
 
-def get_latest_articles(page, nr_of_articles):
+def get_latest_articles(page, articles_count):
     """ Get the sorted articles
 
     :param page: page number
-    :param nr_of_articles: number of articles to extract
+    :param articles_count: number of articles to extract
     :return: list of latest articles
     """
     articles = (p for p in pages if 'published' in p.meta)
     sorted_articles = sorted(articles, reverse=True,
                              key=lambda p: p.meta['published'])
-    start = (page - 1) * nr_of_articles
-    end = page * nr_of_articles
+    start = (page - 1) * articles_count
+    end = page * articles_count
     latest = sorted_articles[start:end]
     return latest
 
@@ -228,12 +228,12 @@ def get_articles_total():
     return length
 
 
-def set_pagination(page, nr_of_articles, nr_of_articles_on_page):
+def set_pagination(page, articles_count, articles_per_page_count):
     """ Decide if pagination is required
 
     :param page: page number
-    :param nr_of_articles: number of articles available
-    :param nr_of_articles_on_page: number of articles on a page
+    :param articles_count: number of articles available
+    :param articles_per_page_count: number of articles on a page
     :return: tuple of 2 bool values, the first one shows if pagination is required
              for the future, the second - for the past
     """
@@ -243,6 +243,6 @@ def set_pagination(page, nr_of_articles, nr_of_articles_on_page):
     if page == 1:
         future = False
 
-    if nr_of_articles < nr_of_articles_on_page + 1:
+    if articles_count < articles_per_page_count + 1:
         past = False
     return (future, past)
